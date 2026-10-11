@@ -1,0 +1,16 @@
+# runtime data (logs, decision logs of hundreds of MB, results) - regenerate with `node arena.js up`
+run/
+# per-instance copies of the Balatro game files - never commit game files
+instances/
+_to_delete/
+# machine specific paths; `node arena.js setup` writes it
+arena.config.json
+node_modules/
+__pycache__/
+*.pyc
+*.log
+*.zip
+.DS_Store
+Thumbs.db
+# internal working notes for the development sessions (strategy Q&A, handoff briefing); kept locally, not published
+docs/HANDOFF.md

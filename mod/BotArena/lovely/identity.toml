@@ -1,0 +1,23 @@
+# Belt-and-braces save-folder isolation.
+#
+# Each arena instance normally gets its own save folder because arena.js launches a *renamed copy*
+# of Balatro.exe (LOVE derives the save folder from the exe name). If BOTARENA_IDENTITY is set, this
+# patch additionally pins the LOVE save identity from the very top of conf.lua, so the instance can
+# never fall back to the real %APPDATA%/Balatro profile. Does nothing when the variable is absent.
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = -1000
+
+[[patches]]
+[patches.copy]
+target = "conf.lua"
+position = "prepend"
+payload = '''
+pcall(function()
+	local id = os.getenv("BOTARENA_IDENTITY")
+	if id and id ~= "" and love and love.filesystem and love.filesystem.setIdentity then
+		love.filesystem.setIdentity(id)
+	end
+end)
+'''
